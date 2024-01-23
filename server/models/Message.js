@@ -1,19 +1,18 @@
 import { Schema, model } from 'mongoose';
 
-const MessageSchema = new Schema({
-	sender: {
-		type: Schema.Types.ObjectId,
-		ref: 'User',
-		required: true,
+const MessageSchema = new Schema(
+	{
+		sender: {
+			type: Schema.Types.ObjectId,
+			ref: 'User',
+			required: true,
+		},
+		content: {
+			type: String,
+			required: true,
+		},
 	},
-	content: {
-		type: String,
-		required: true,
-	},
-	timestamp: {
-		type: Date,
-		default: Date.now,
-	},
-});
+	{ timestamps: true }
+);
 
 export default model('Message', MessageSchema);
