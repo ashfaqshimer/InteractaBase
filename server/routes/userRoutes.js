@@ -5,10 +5,7 @@ import { protect } from '../middleware/auth.js';
 
 const router = Router();
 
-router
-  .route('/')
-  .get(getUsers)
-
+router.route('/').get(getUsers)
 router.route('/:id').get(getUser).delete(protect, deleteUser);
 
 export default router;

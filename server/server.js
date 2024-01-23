@@ -14,7 +14,8 @@ config({ path: '.env' });
 connectDb();
 
 // Route files
-import users from './routes/userRoutes.js';
+import authRoutes from './routes/authRoutes.js';
+import userRoutes from './routes/userRoutes.js';
 
 const app = express();
 
@@ -30,7 +31,8 @@ if (process.env.NODE_ENV === 'development') {
 // app.use(express.static(join(__dirname, 'public')));
 
 // Mount routers
-app.use('/api/v1/users', users);
+app.use('/api/v1/auth', authRoutes);
+app.use('/api/v1/users', userRoutes);
 
 // // Error handler
 app.use(errorHandler);
