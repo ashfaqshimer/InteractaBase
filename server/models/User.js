@@ -1,13 +1,10 @@
 import { Schema, model } from 'mongoose';
 import bcrypt from 'bcrypt';
 import jsonwebtoken from 'jsonwebtoken';
+import crypto from "crypto"
 
 const UserSchema = new Schema(
   {
-    name: {
-      type: String,
-      required: [true, 'Please add a name']
-    },
     email: {
       type: String,
       required: [true, 'Please add an email'],
@@ -22,7 +19,7 @@ const UserSchema = new Schema(
     },
     role: {
       type: String,
-      enum: ['user'],
+      enum: ['user', 'admin'],
       default: 'user'
     },
     resetPasswordToken: String,
@@ -58,5 +55,19 @@ UserSchema.pre('remove', async function(next) {
   await this.model('Profile').deleteOne({ user: this._id });
   next();
 });
+
+// Generate password reset token
+UserSchema.methods.getResetPasswordToken = function() {
+  // Generate token
+  const resetToken = crypto.randomBytes(20).toString('hex');
+  // Hash token and set to resetPasswordToken field
+  this.resetPasswordToken = crypto
+    .createHash('sha256')
+    .update(resetToken)
+    .digest('hex');
+  // Set expire
+  this.resetPasswordExpire = Date.now() + 10 * 60 * 1000;
+  return resetToken;
+};
 
 export default model('User', UserSchema);
