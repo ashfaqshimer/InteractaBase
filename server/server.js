@@ -16,6 +16,7 @@ connectDb();
 // Route files
 import authRoutes from './routes/authRoutes.js';
 import userRoutes from './routes/userRoutes.js';
+import chatRoutes from './routes/chatRoutes.js';
 
 const app = express();
 
@@ -24,7 +25,7 @@ app.use(express.json());
 
 // Dev loggin middleware
 if (process.env.NODE_ENV === 'development') {
-  app.use(morgan('dev'));
+	app.use(morgan('dev'));
 }
 
 // // Set static folder
@@ -33,6 +34,7 @@ if (process.env.NODE_ENV === 'development') {
 // Mount routers
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/users', userRoutes);
+app.use('/api/v1/chats', chatRoutes)
 
 // // Error handler
 app.use(errorHandler);
@@ -42,15 +44,15 @@ app.use(errorHandler);
 const PORT = process.env.PORT || 5000;
 
 const server = app.listen(
-  PORT,
-  console.log(
-    `Server running in ${process.env.NODE_ENV} mode on port ${PORT}`.yellow.bold
-  )
+	PORT,
+	console.log(
+		`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`.yellow.bold
+	)
 );
 
 // Handle unhandled promise rejections
 process.on('unhandledRejection', (err, promise) => {
-  console.error(`Error: ${err.message}`.red);
-  // Close server and exit process
-  server.close(() => process.exit(1));
+	console.error(`Error: ${err.message}`.red);
+	// Close server and exit process
+	server.close(() => process.exit(1));
 });
