@@ -10,3 +10,19 @@ export const loginUser = async (loginDetails) => {
 		throw new Error(error.response?.data?.error || 'Error logging in');
 	}
 };
+
+export const registerUser = async (formData) => {
+	try {
+		const response = await axios.post(`${AUTH_URL}/register`, formData);
+		return response;
+	} catch (error) {
+		let errorMsg;
+		if (error.response?.data?.errors) {
+			errorMsg = error.response?.data?.errors.join(', ');
+		}
+		if (error.response?.data?.error) {
+			errorMsg = error.response?.data?.error;
+		}
+		throw new Error(errorMsg || 'Error creating user');
+	}
+};

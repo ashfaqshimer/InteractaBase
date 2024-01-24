@@ -2,6 +2,7 @@ import express from 'express';
 import { config } from 'dotenv';
 import morgan from 'morgan';
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
 import colors from 'colors';
 
 // Local imports
@@ -30,6 +31,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 app.use(cors());
+app.use(cookieParser());
 // // Set static folder
 // app.use(express.static(join(__dirname, 'public')));
 
