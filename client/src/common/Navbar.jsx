@@ -28,22 +28,33 @@ const Navbar = () => {
 				<Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
 					Your Logo
 				</Typography>
-				<div style={{ display: 'flex', alignItems: 'center' }}>
-					<div style={{ marginRight: '16px' }}>
-						<IconButton color='inherit'>
-							<SearchIcon />
-						</IconButton>
-					</div>
+				{/* <div style={{ display: 'flex', alignItems: 'center' }}> */}
+				<div
+					style={{
+						display: 'flex',
+						alignItems: 'center',
+						width: '300px',
+						backgroundColor: 'white',
+						borderRadius: '9px',
+						padding: '0 1.5rem',
+					}}
+				>
 					<InputBase
 						placeholder='Search...'
 						inputProps={{ 'aria-label': 'search' }}
 						sx={{
 							backgroundColor: 'white',
-							borderRadius: '4px',
 							padding: '8px',
+							width: '100%',
+							display: 'flex',
+							alignItems: 'center',
 						}}
 					/>
+					<IconButton color='default'>
+						<SearchIcon />
+					</IconButton>
 				</div>
+				{/* </div> */}
 
 				{/* Icons on the right */}
 				<IconButton color='inherit'>
