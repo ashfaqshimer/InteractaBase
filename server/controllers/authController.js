@@ -9,10 +9,10 @@ const sendTokenResponse = (user, statusCode, res, data) => {
 	// Create token
 	const token = user.getSignedJwtToken();
 	const options = {
-		expires: new Date(
-			Date.now() + process.env.JWT_COOKIE_EXPIRE * 24 * 60 * 60 * 1000
-		),
 		httpOnly: true,
+		secure: process.env.NODE_ENV !== 'development', // Use secure cookies in production
+		sameSite: 'strict', // Prevent CSRF attacks
+		maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
 	};
 
 	if (process.env.NODE_ENV === 'production') {

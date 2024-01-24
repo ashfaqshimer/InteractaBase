@@ -30,6 +30,7 @@ const authSlice = createSlice({
 				state.user = payload.data;
 				state.error = null;
 				localStorage.setItem('token', JSON.stringify(payload.token));
+				localStorage.setItem('user', JSON.stringify(payload.data));
 				setAuthToken(localStorage.token);
 			})
 			.addCase(register.fulfilled, (state, { payload }) => {
@@ -37,17 +38,16 @@ const authSlice = createSlice({
 				state.user = payload.data;
 				state.error = null;
 				localStorage.setItem('token', JSON.stringify(payload.token));
+				localStorage.setItem('user', JSON.stringify(payload.data));
 				setAuthToken(localStorage.token);
 			})
 			.addMatcher(
-				// matcher can be defined inline as a type predicate function
 				(action) => action.type.endsWith('/pending'),
 				(state, action) => {
 					state.status = 'loading';
 				}
 			)
 			.addMatcher(
-				// matcher can be defined inline as a type predicate function
 				(action) => action.type.endsWith('/rejected'),
 				(state, action) => {
 					state.status = 'failed';
