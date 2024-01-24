@@ -14,7 +14,7 @@ const sendTokenResponse = (user, statusCode, res, data) => {
 		),
 		httpOnly: true,
 	};
-    
+
 	if (process.env.NODE_ENV === 'production') {
 		options.secure = true;
 	}
@@ -32,7 +32,12 @@ export const createUser = asyncHandler(async (req, res, next) => {
 	// Hide the password
 	user.password = undefined;
 
-	sendTokenResponse(user, 201, res);
+	sendTokenResponse(user, 200, res, {
+		_id: user._id,
+		firstName: user.firstName,
+		lastName: user.lastName,
+		email: user.email,
+	});
 });
 
 // @desc    Create a user
@@ -55,7 +60,12 @@ export const loginUser = asyncHandler(async (req, res, next) => {
 		return next(new ErrorResponse('Invalid credentials', 401));
 	}
 
-	sendTokenResponse(user, 200, res);
+	sendTokenResponse(user, 200, res, {
+		_id: user._id,
+		firstName: user.firstName,
+		lastName: user.lastName,
+		email: user.email,
+	});
 });
 
 // @desc    Logout
