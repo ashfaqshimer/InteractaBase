@@ -16,6 +16,11 @@ import RegisterPage from './pages/RegisterPage.jsx';
 import HomePage from './pages/HomePage.jsx';
 import PrivateRoute from './features/auth/PrivateRoute.jsx';
 
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
+
 const router = createBrowserRouter(
 	createRoutesFromElements(
 		<Route path='/' element={<App />}>
