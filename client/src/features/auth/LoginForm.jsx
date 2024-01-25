@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { login } from './authSlice';
 import { Button, TextField, Typography, Container, Box } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 const LoginForm = () => {
 	const [email, setEmail] = useState('');
@@ -78,6 +79,12 @@ const LoginForm = () => {
 					>
 						Login
 					</Button>
+					<Box mt={2}>
+						<Typography textAlign={'center'}>
+							Don't have an account?
+							<Link to='/register'>Sign up here</Link>
+						</Typography>
+					</Box>
 				</Box>
 			</Box>
 		</Container>
