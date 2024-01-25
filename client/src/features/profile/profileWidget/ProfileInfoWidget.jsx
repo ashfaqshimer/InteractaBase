@@ -4,19 +4,19 @@ import WidgetWrapper from '../../../common/WidgetWrapper';
 import FlexBetween from '../../../common/FlexBetween';
 import ProfileHeader from './ProfileHeader';
 import UserInfo from './UserInfo';
+import SocialProfiles from './SocialProfiles';
+import Shortcuts from './Shortcuts';
 
 const ProfileInfoWidget = () => {
 	return (
 		<WidgetWrapper>
-			<FlexBetween
-				gap='0.5rem'
-				pb='1.1rem'
-				onClick={() => navigate(`/profile/${userId}`)}
-			>
-				<ProfileHeader />
-			</FlexBetween>
+			<ProfileHeader />
 			<Divider />
 			<UserInfo />
+			<Divider />
+			<SocialProfiles />
+			<Divider />
+			<Shortcuts/>
 		</WidgetWrapper>
 	);
 };
