@@ -13,13 +13,17 @@ import './index.css';
 import store from './store';
 import LoginPage from './pages/LoginPage.jsx';
 import RegisterPage from './pages/RegisterPage.jsx';
+import HomePage from './pages/HomePage.jsx';
+import PrivateRoute from './features/auth/PrivateRoute.jsx';
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
 		<Route path='/' element={<App />}>
-			<Route index={true} path='/' element={<div>Home</div>} />
 			<Route path='/login' element={<LoginPage />} />
 			<Route path='/register' element={<RegisterPage />} />
+			<Route path='' element={<PrivateRoute />}>
+				<Route index path='/' element={<HomePage />} />
+			</Route>
 		</Route>
 	)
 );
