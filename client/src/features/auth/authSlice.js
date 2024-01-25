@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { loginUser, registerUser } from './authService';
+import { loginUser, logoutUser, registerUser } from './authService';
 import setAuthToken from '../../common/utils';
 
 const initialState = {
@@ -41,6 +41,14 @@ const authSlice = createSlice({
 				localStorage.setItem('user', JSON.stringify(payload.data));
 				setAuthToken(localStorage.token);
 			})
+			.addCase(logout.fulfilled, (state, { payload }) => {
+				state.status = 'succeeded';
+				state.user = null;
+				state.error = null;
+				localStorage.removeItem('token');
+				localStorage.removeItem('user');
+				setAuthToken(localStorage.token);
+			})
 			.addMatcher(
 				(action) => action.type.endsWith('/pending'),
 				(state, action) => {
@@ -70,6 +78,11 @@ export const register = createAsyncThunk(
 		return response.data;
 	}
 );
+
+export const logout = createAsyncThunk('auth/logout', async () => {
+	const response = await logoutUser();
+	return response.data;
+});
 
 export const { setUser, clearUser } = authSlice.actions;
 
