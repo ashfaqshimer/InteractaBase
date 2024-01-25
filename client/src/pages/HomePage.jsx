@@ -1,33 +1,33 @@
 import React from 'react';
 import Navbar from '../common/Navbar';
-import ProfileInfoWidget from '../features/profile/profileWidget/ProfileInfoWidget';
-import { Box, Container } from '@mui/material';
+import ProfileInfoWidget from '../features/profile/profileInfoWidget/ProfileInfoWidget';
+import FeedWidget from '../features/profile/feedWidget/FeedWidget';
+import { Grid } from '@mui/material';
 import styled from '@emotion/styled';
 
-const StyledContainer = styled(Container)({
-	display: 'flex',
-	justifyContent: 'space-between',
-	width: '100%',
-	height: '100%',
-	paddingTop: '1.5rem',
-	paddingBottom: '1.5rem',
-});
-
-const FullScreenBox = styled(Box)({
+const FullScreenGrid = styled(Grid)({
 	backgroundColor: '#F6F6F6',
 	height: '100vh',
 });
 
 const HomePage = () => {
 	return (
-		<FullScreenBox>
-			<Navbar />
-			<FullScreenBox>
-				<StyledContainer>
+		<FullScreenGrid container spacing={2}>
+			<Grid item xs={12}>
+				<Navbar />
+			</Grid>
+			<Grid container justifyContent='space-between' p={2} spacing={2}>
+				<Grid item xs={12} md={3}>
 					<ProfileInfoWidget />
-				</StyledContainer>
-			</FullScreenBox>
-		</FullScreenBox>
+				</Grid>
+				<Grid item xs={12} md={6}>
+					<FeedWidget />
+				</Grid>
+				<Grid item xs={12} md={3}>
+					<div>Third Widget</div>
+				</Grid>
+			</Grid>
+		</FullScreenGrid>
 	);
 };
 
