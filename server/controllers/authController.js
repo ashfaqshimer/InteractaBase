@@ -32,12 +32,7 @@ export const createUser = asyncHandler(async (req, res, next) => {
 	// Hide the password
 	user.password = undefined;
 
-	sendTokenResponse(user, 200, res, {
-		_id: user._id,
-		firstName: user.firstName,
-		lastName: user.lastName,
-		email: user.email,
-	});
+	sendTokenResponse(user, 200, res, user);
 });
 
 // @desc    Create a user
@@ -60,12 +55,9 @@ export const loginUser = asyncHandler(async (req, res, next) => {
 		return next(new ErrorResponse('Invalid credentials', 401));
 	}
 
-	sendTokenResponse(user, 200, res, {
-		_id: user._id,
-		firstName: user.firstName,
-		lastName: user.lastName,
-		email: user.email,
-	});
+	user.password = undefined;
+
+	sendTokenResponse(user, 200, res, user);
 });
 
 // @desc    Logout

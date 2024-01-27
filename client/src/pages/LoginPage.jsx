@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import LoginForm from '../features/auth/LoginForm';
-import { Box, Typography, useTheme, useMediaQuery } from '@mui/material';
-import { Link, useNavigate } from 'react-router-dom';
+import { Box, useTheme } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 const LoginPage = () => {
