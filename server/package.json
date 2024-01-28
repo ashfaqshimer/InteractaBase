@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon server.js",
-    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --detectOpenHandles",
     "test:unit": "jest --testPathPattern=__tests__/unit",
     "test:integration": "jest --testPathPattern=__tests__/integration",
     "test:coverage": "jest --coverage"
