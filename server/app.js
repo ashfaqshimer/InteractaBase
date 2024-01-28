@@ -6,7 +6,7 @@ import cookieParser from 'cookie-parser';
 import colors from 'colors';
 
 // Local imports
-import connectDb from './config/db.js';
+import { connectDb } from './config/db.js';
 import errorHandler from './middleware/errorHandler.js';
 
 // Load env vars
@@ -27,7 +27,7 @@ app.use(express.json());
 
 // Dev loggin middleware
 if (process.env.NODE_ENV === 'development') {
-	app.use(morgan('dev'));
+  app.use(morgan('dev'));
 }
 
 app.use(cors());
