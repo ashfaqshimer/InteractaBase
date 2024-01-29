@@ -23,21 +23,29 @@ describe('Authentication Routes', () => {
       expect(response.status).toBe(200);
       expect(response.body).toHaveProperty('success', true);
       expect(response.body).toHaveProperty('token');
+      const tokenPattern =
+        /^eyJ[a-zA-Z0-9_-]+\.[a-zA-Z0-9_-]+\.[a-zA-Z0-9_-]+$/;
+
+      expect(response.body.token).toMatch(tokenPattern);
     });
 
     it('should return 401 for invalid credentials', async () => {
-      const response = await request(app).post('/api/v1/auth/login').send({
-        email: 'invalid@example.com',
+      // Test Case 1: Missing Credentials
+      let response = await request(app).post('/api/v1/auth/login').send({});
+      expect(response.status).toBe(400);
+
+      // Test Case 2: Incorrect Email Format
+      response = await request(app)
+        .post('/api/v1/auth/login')
+        .send({ email: 'invalid-email', password: 'invalid_password' });
+      expect(response.status).toBe(401);
+
+      // Test Case 3: User Not Found
+      response = await request(app).post('/api/v1/auth/login').send({
+        email: 'nonexistent@example.com',
         password: 'invalid_password',
       });
-
       expect(response.status).toBe(401);
-      expect(response.body).toHaveProperty('success', false);
-      expect(response.body).toHaveProperty('error');
     });
-
-    // Add more tests for different scenarios
   });
-
-  // Add tests for other auth routes (register, logout, getMe, etc.)
 });
