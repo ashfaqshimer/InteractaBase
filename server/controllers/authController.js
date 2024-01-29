@@ -26,7 +26,7 @@ const sendTokenResponse = (user, statusCode, res, data) => {
 
 // @desc    Create a user
 // @route   POST /api/v1/auth/register
-// @access  Private/Admin
+// @access  Public
 export const createUser = asyncHandler(async (req, res, next) => {
 	const user = await User.create(req.body);
 	// Hide the password
@@ -35,9 +35,9 @@ export const createUser = asyncHandler(async (req, res, next) => {
 	sendTokenResponse(user, 200, res, user);
 });
 
-// @desc    Create a user
+// @desc    Login a user
 // @route   POST /api/v1/auth/login
-// @access  Private/Admin
+// @access  Public
 export const loginUser = asyncHandler(async (req, res, next) => {
 	const { email, password } = req.body;
 	
