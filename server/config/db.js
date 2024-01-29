@@ -1,6 +1,8 @@
 import mongoose from 'mongoose';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 
+let mongoServer; // Declare mongoServer at a higher scope
+
 export const connectDb = async () => {
   try {
     const conn = await mongoose.connect(process.env.MONGO_URI);
@@ -16,7 +18,7 @@ export const connectDb = async () => {
 export const connectTestDb = async () => {
   // NOTE: before establishing a new connection close previous
   await mongoose.disconnect();
-  const mongoServer = await MongoMemoryServer.create();
+  mongoServer = await MongoMemoryServer.create(); // Assign value to mongoServer
   const mongoUri = await mongoServer.getUri();
   const conn = await mongoose.connect(mongoUri);
   console.log(`MongoDB Test DB Connected: ${conn.connection.host}`.blue.underline.bold);
@@ -33,5 +35,7 @@ export const clear = async () => {
 // Remove and close the database and server.
 export const close = async () => {
   await mongoose.disconnect();
-  await mongoServer.stop();
+  if (mongoServer) {
+    await mongoServer.stop();
+  }
 };
