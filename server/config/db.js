@@ -21,7 +21,9 @@ export const connectTestDb = async () => {
   mongoServer = await MongoMemoryServer.create(); // Assign value to mongoServer
   const mongoUri = await mongoServer.getUri();
   const conn = await mongoose.connect(mongoUri);
-  console.log(`MongoDB Test DB Connected: ${conn.connection.host}`.blue.underline.bold);
+  console.log(
+    `MongoDB Test DB Connected: ${conn.connection.host}`.blue.underline.bold,
+  );
 };
 
 // Remove all data from collections
@@ -35,6 +37,7 @@ export const clear = async () => {
 // Remove and close the database and server.
 export const close = async () => {
   await mongoose.disconnect();
+  console.log(`MongDB database disconnected`.bgYellow);
   if (mongoServer) {
     await mongoServer.stop();
   }
