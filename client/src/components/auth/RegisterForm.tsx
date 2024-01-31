@@ -124,7 +124,12 @@ function RegisterForm() {
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+        <div className="flex space space-x-4 justify-center">
+          <Button type="submit">Submit</Button>
+          <Button type="reset" variant={'secondary'}>
+            Clear
+          </Button>
+        </div>
       </form>
     </Form>
   );
