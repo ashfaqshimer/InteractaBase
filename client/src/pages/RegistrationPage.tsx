@@ -1,5 +1,6 @@
 import RegisterForm from '@/components/auth/RegisterForm';
 import Hero from '@/components/ui/Hero';
+import { Toaster } from '@/components/ui/toaster';
 
 const RegistrationPage = () => {
   return (
@@ -17,6 +18,7 @@ const RegistrationPage = () => {
               </p>
             </div>
             <RegisterForm />
+            <Toaster />
           </div>
         </div>
       </div>

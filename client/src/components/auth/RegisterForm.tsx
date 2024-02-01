@@ -15,6 +15,7 @@ import { Input } from '@/components/ui/input';
 import { useAppDispatch } from '@/hooks/redux';
 import { register } from '@/slices/authSlice';
 import { useNavigate } from 'react-router-dom';
+import { useToast } from '../ui/use-toast';
 
 const formSchema = z
   .object({
@@ -40,7 +41,8 @@ const formSchema = z
 function RegisterForm() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  // 1. Define your form.
+  const { toast } = useToast();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -52,11 +54,15 @@ function RegisterForm() {
     },
   });
 
-  // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
     dispatch(register(values))
       .unwrap()
-      .then(() => navigate('/'));
+      .then(() => {
+        toast({
+          title: 'Registration Success!',
+        });
+        navigate('/');
+      });
   }
 
   return (
