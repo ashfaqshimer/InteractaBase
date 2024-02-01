@@ -12,6 +12,9 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { useAppDispatch } from '@/hooks/redux';
+import { register } from '@/slices/authSlice';
+import { useNavigate } from 'react-router-dom';
 
 const formSchema = z
   .object({
@@ -31,10 +34,12 @@ const formSchema = z
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords don't match",
-    path: ['confirmPassword'], 
+    path: ['confirmPassword'],
   });
 
 function RegisterForm() {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -49,9 +54,9 @@ function RegisterForm() {
 
   // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
+    dispatch(register(values))
+      .unwrap()
+      .then(() => navigate('/'));
   }
 
   return (
