@@ -13,7 +13,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useAppDispatch } from '@/hooks/redux';
-import { register } from '@/slices/authSlice';
+import { login } from '@/slices/authSlice';
 import { useNavigate } from 'react-router-dom';
 import { useToast } from '../ui/use-toast';
 
@@ -40,14 +40,21 @@ function LoginForm() {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    dispatch(register(values))
+    dispatch(login(values))
       .unwrap()
       .then(() => {
         toast({
-          title: 'Registration Success!',
+          title: 'Login Success!',
         });
         navigate('/');
-      });
+      })
+      .catch((err) =>
+        toast({
+          title: 'Login Failed',
+          description: err.message,
+          variant: 'destructive',
+        }),
+      );
   }
 
   return (
