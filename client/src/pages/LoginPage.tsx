@@ -1,6 +1,5 @@
 import LoginForm from '@/components/auth/LoginForm';
 import Hero from '@/components/ui/Hero';
-import { Toaster } from '@/components/ui/toaster';
 
 const LoginPage = () => {
   return (
@@ -16,7 +15,6 @@ const LoginPage = () => {
               </p>
             </div>
             <LoginForm />
-            <Toaster />
           </div>
         </div>
       </div>
