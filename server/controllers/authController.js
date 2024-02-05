@@ -62,7 +62,7 @@ export const loginUser = asyncHandler(async (req, res, next) => {
 
 // @desc    Logout
 // @route   GET /api/v1/auth/logout
-// @access  Private
+// @access  Public
 export const logout = asyncHandler(async (req, res, next) => {
 	res.cookie('token', 'none', {
 		expires: new Date(Date.now() + 10 * 1000),

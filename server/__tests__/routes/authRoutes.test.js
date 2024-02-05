@@ -105,4 +105,29 @@ describe('Authentication Routes', () => {
       expect(response.body).toHaveProperty('error');
     });
   });
+
+  describe('GET /api/v1/auth/logout', () => {
+    it('should clear the cookie and return success', async () => {
+      // Login user to get a valid token
+      const loginResponse = await request(app).post('/api/v1/auth/login').send({
+        email: 'testuser@test.com',
+        password: 'password123',
+      });
+
+      // Make a request to logout
+      const response = await request(app)
+        .get('/api/v1/auth/logout')
+        .set('Cookie', [`token=${loginResponse.body.token}`]);
+
+      // Expectations
+      expect(response.status).toBe(200);
+      expect(response.body).toHaveProperty('success', true);
+      expect(response.body).toHaveProperty('data', {});
+
+      // Check if the 'token' cookie is cleared
+      const cookies = response.headers['set-cookie'];
+      const tokenCookie = cookies.find((cookie) => cookie.startsWith('token='));
+      expect(tokenCookie).toContain('token=none');
+    });
+  });
 });
