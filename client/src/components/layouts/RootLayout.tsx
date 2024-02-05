@@ -5,8 +5,10 @@ import { Toaster } from '../ui/toaster';
 function RootLayout() {
   return (
     <>
-      <Navbar />
-      <Outlet />
+      <div className="h-screen">
+        <Navbar />
+        <Outlet />
+      </div>
       <Toaster />
     </>
   );

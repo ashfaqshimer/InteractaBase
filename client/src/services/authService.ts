@@ -58,6 +58,6 @@ export const logoutUser = async () => {
     if (error.response?.data?.error) {
       errorMsg = error.response?.data?.error;
     }
-    throw new Error(errorMsg || 'Error creating user');
+    throw new Error(errorMsg || 'Error logging out');
   }
 };

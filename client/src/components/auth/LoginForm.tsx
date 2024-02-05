@@ -44,13 +44,13 @@ function LoginForm() {
       .unwrap()
       .then(() => {
         toast({
-          title: 'Login Success!',
+          title: 'Login success!',
         });
         navigate('/');
       })
       .catch((err) =>
         toast({
-          title: 'Login Failed',
+          title: 'Login failed',
           description: err.message,
           variant: 'destructive',
         }),
