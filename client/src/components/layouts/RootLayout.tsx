@@ -4,13 +4,11 @@ import { Toaster } from '../ui/toaster';
 
 function RootLayout() {
   return (
-    <>
-      <div className="h-screen">
-        <Navbar />
-        <Outlet />
-      </div>
+    <div className="h-screen">
+      <Navbar />
+      <Outlet />
       <Toaster />
-    </>
+    </div>
   );
 }
 
