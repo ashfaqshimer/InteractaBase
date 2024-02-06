@@ -1,9 +1,11 @@
-import React from 'react'
+import CreatePost from '@/components/feed/CreatePost';
 
 function HomePage() {
   return (
-    <div>HomePage</div>
-  )
+    <div className="container">
+      <CreatePost />
+    </div>
+  );
 }
 
-export default HomePage
+export default HomePage;
