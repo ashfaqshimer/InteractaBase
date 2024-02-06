@@ -31,7 +31,7 @@ const Navbar = () => {
   };
 
   return (
-    <NavigationMenu className="h-[8%] py-3 px-5 border-b border-gray-300 flex justify-between max-w-full">
+    <NavigationMenu className="h-[7%] py-3 px-5 border-b border-gray-300 flex justify-between max-w-full">
       <NavigationMenuList className="flex items-center">
         {/* Replace NavigationMenuItem with a Link */}
         <Link to="/">

@@ -62,7 +62,14 @@ function RegisterForm() {
           title: 'Registration Success!',
         });
         navigate('/');
-      });
+      })
+      .catch((err) =>
+        toast({
+          title: 'Registration failed',
+          description: err.message,
+          variant: 'destructive',
+        }),
+      );
   }
 
   return (
