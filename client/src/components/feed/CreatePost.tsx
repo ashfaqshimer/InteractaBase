@@ -1,5 +1,3 @@
-'use client';
-
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -38,27 +36,29 @@ function CreatePost() {
   }
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-2">
-        <FormField
-          control={form.control}
-          name="post"
-          render={({ field }) => (
-            <FormItem>
-              <FormControl>
-                <Textarea
-                  placeholder="What's on your mind?"
-                  className="resize-none"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <Button type="submit">Submit</Button>
-      </form>
-    </Form>
+    <div className="mt-3 p-3">
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-2">
+          <FormField
+            control={form.control}
+            name="post"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <Textarea
+                    placeholder="What's on your mind?"
+                    className="resize-none"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <Button type="submit">Submit</Button>
+        </form>
+      </Form>
+    </div>
   );
 }
 
