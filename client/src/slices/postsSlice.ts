@@ -1,14 +1,23 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { createPost as createPostService, getPosts as getPostsService } from '@/api/postsService';
+import {
+  createPost as createPostService,
+  getPosts as getPostsService,
+} from '@/api/postsService';
+
+interface Post {
+  _id: string;
+  author: string;
+  content: string;
+}
 
 interface PostState {
-  posts: any[]; // Define your post type
+  list: Post[]; // Define your post type
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
   error: string | null;
 }
 
 const initialState: PostState = {
-  posts: [],
+  list: [],
   status: 'idle',
   error: null,
 };
@@ -21,20 +30,17 @@ export const createPost = createAsyncThunk(
   },
 );
 
-export const getPosts = createAsyncThunk(
-  'posts/getPosts',
-  async () => {
-    const response = await getPostsService();
-    return response.data;
-  },
-);
+export const getPosts = createAsyncThunk('posts/getPosts', async () => {
+  const response = await getPostsService();
+  return response.data;
+});
 
 const postsSlice = createSlice({
   name: 'posts',
   initialState,
   reducers: {
     clearPosts: (state) => {
-      state.posts = [];
+      state.list = [];
     },
   },
   extraReducers(builder) {
@@ -42,12 +48,12 @@ const postsSlice = createSlice({
       .addCase(createPost.fulfilled, (state, { payload }) => {
         state.status = 'succeeded';
         // Handle adding the new post to the state
-        state.posts.push(payload.data);
+        state.list.push(payload.data);
         state.error = null;
       })
       .addCase(getPosts.fulfilled, (state, { payload }) => {
         state.status = 'succeeded';
-        state.posts = payload.data;
+        state.list = payload.data;
         state.error = null;
       })
       .addMatcher(
