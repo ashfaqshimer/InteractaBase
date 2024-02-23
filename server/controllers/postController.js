@@ -21,3 +21,10 @@ export const createPost = asyncHandler(async (req, res, next) => {
 
   res.status(201).json({ success: true, data: post });
 });
+
+/// @desc   Get all posts
+// @route   GET /api/v1/posts
+// @access  Private
+export const getPosts = asyncHandler(async (req, res, next) => {
+  res.status(200).json(res.advancedResults);
+});

@@ -1,14 +1,14 @@
 import request from 'supertest';
 import app from '../../app.js';
 import { connectTestDb, clear, close } from '../../config/db.js';
-import { seedUsers } from '../../seeder/userSeed.js';
 import Post from '../../models/Post.js';
 import User from '../../models/User.js';
+import { seedAll } from '../../seeder/index.js';
 
 describe('Post Routes', () => {
   beforeAll(async () => await connectTestDb());
   beforeEach(async () => {
-    await seedUsers();
+    await seedAll();
   });
   afterEach(async () => {
     await clear();
@@ -55,6 +55,32 @@ describe('Post Routes', () => {
       const response = await request(app)
         .post('/api/v1/posts/create')
         .send({ content: 'This is a test post' });
+
+      expect(response.status).toBe(401);
+      expect(response.body).toHaveProperty('success', false);
+      expect(response.body).toHaveProperty('error');
+    });
+  });
+
+  describe('GET /api/v1/posts', () => {
+    it('should get all posts', async () => {
+      const user = await User.findOne({ email: 'testuser@test.com' });
+      const token = user.getSignedJwtToken();
+
+      const response = await request(app)
+        .get('/api/v1/posts')
+        .set('Cookie', [`token=${token}`]);
+
+      expect(response.status).toBe(200);
+      expect(response.body).toHaveProperty('success', true);
+      expect(response.body).toHaveProperty('count');
+      expect(response.body).toHaveProperty('pagination');
+      expect(response.body).toHaveProperty('data');
+      expect(response.body.data.length).toBeGreaterThan(0);
+    });
+
+    it('should return 401 if user is not authenticated', async () => {
+      const response = await request(app).get('/api/v1/posts');
 
       expect(response.status).toBe(401);
       expect(response.body).toHaveProperty('success', false);
