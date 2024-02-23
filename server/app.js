@@ -8,17 +8,13 @@ import colors from 'colors';
 // Local imports
 import { connectDb } from './config/db.js';
 import errorHandler from './middleware/errorHandler.js';
+import routes from './routes/index.js';
 
 // Load env vars
 config({ path: '.env' });
 
 // Connect to database
 connectDb();
-
-// Route files
-import authRoutes from './routes/authRoutes.js';
-import userRoutes from './routes/userRoutes.js';
-import chatRoutes from './routes/chatRoutes.js';
 
 const app = express();
 
@@ -36,9 +32,7 @@ app.use(cookieParser());
 // app.use(express.static(join(__dirname, 'public')));
 
 // Mount routers
-app.use('/api/v1/auth', authRoutes);
-app.use('/api/v1/users', userRoutes);
-app.use('/api/v1/chats', chatRoutes);
+app.use('/api/v1/', routes);
 
 // // Error handler
 app.use(errorHandler);
