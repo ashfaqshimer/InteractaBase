@@ -1,14 +1,14 @@
-import axios from 'axios';
+import api from './axiosInstance';
 
 interface PostData {
   content: string;
 }
 
-const POSTS_URL = `${import.meta.env.VITE_API_URL}/api/v1/posts`;
+const POSTS_URL = '/api/v1/posts';
 
 export const createPost = async (postData: PostData) => {
   try {
-    const response = await axios.post(`${POSTS_URL}/create`, postData);
+    const response = await api.post(`${POSTS_URL}/create`, postData);
     return response;
   } catch (error: any) {
     let errorMsg: string | undefined;
@@ -24,7 +24,7 @@ export const createPost = async (postData: PostData) => {
 
 export const getPosts = async () => {
   try {
-    const response = await axios.get(POSTS_URL);
+    const response = await api.get(POSTS_URL);
     return response;
   } catch (error: any) {
     let errorMsg: string | undefined;

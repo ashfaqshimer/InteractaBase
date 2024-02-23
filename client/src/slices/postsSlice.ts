@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { createPost as createPostService, getPosts as getPostsService } from '@/services/postsService';
+import { createPost as createPostService, getPosts as getPostsService } from '@/api/postsService';
 
 interface PostState {
   posts: any[]; // Define your post type

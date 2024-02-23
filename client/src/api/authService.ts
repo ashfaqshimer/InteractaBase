@@ -1,4 +1,4 @@
-import axios from 'axios';
+import api from './axiosInstance';
 
 interface LoginDetails {
   email: string;
@@ -12,11 +12,11 @@ interface FormData {
   password: string;
 }
 
-const AUTH_URL = `${import.meta.env.VITE_API_URL}/api/v1/auth`;
+const AUTH_URL = '/api/v1/auth';
 
 export const loginUser = async (loginDetails: LoginDetails) => {
   try {
-    const response = await axios.post(`${AUTH_URL}/login`, loginDetails);
+    const response = await api.post(`${AUTH_URL}/login`, loginDetails);
     return response;
   } catch (error: any) {
     let errorMsg: string | undefined;
@@ -32,7 +32,7 @@ export const loginUser = async (loginDetails: LoginDetails) => {
 
 export const registerUser = async (formData: FormData) => {
   try {
-    const response = await axios.post(`${AUTH_URL}/register`, formData);
+    const response = await api.post(`${AUTH_URL}/register`, formData);
     return response;
   } catch (error: any) {
     let errorMsg: string | undefined;
@@ -48,7 +48,7 @@ export const registerUser = async (formData: FormData) => {
 
 export const logoutUser = async () => {
   try {
-    const response = await axios.get(`${AUTH_URL}/logout`);
+    const response = await api.get(`${AUTH_URL}/logout`);
     return response;
   } catch (error: any) {
     let errorMsg: string | undefined;
