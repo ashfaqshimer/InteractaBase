@@ -4,14 +4,19 @@ import {
   getPosts as getPostsService,
 } from '@/api/postsService';
 
-interface Post {
+export interface Post {
   _id: string;
-  author: string;
+  title: string;
   content: string;
+  author: {
+    _id: string;
+    firstName: string;
+    lastName: string;
+  };
+  createdAt: string;
 }
-
 interface PostState {
-  list: Post[]; // Define your post type
+  list: Post[];
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
   error: string | null;
 }

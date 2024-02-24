@@ -14,7 +14,7 @@ function Posts() {
   return (
     <div>
       {list.map((post) => (
-        <Post />
+        <Post key={post._id} post={post} />
       ))}
     </div>
   );

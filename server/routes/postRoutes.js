@@ -8,7 +8,7 @@ const router = express.Router();
 
 router.use(protect);
 
-router.get('/', advancedResults(Post), getPosts);
+router.get('/', advancedResults(Post, 'author'), getPosts);
 router.post('/create', createPost);
 
 export default router;
